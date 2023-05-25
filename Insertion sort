@@ -1,0 +1,30 @@
+//JAVA
+
+import java.util.*;
+
+public class Insertion_sort {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter array size : ");
+        int n = sc.nextInt();
+        int s[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter an element : ");
+            s[i] = sc.nextInt();
+        }
+        for (int i = 1; i < n; i++) {
+            int j = i;
+            // int key = s[j];
+            while (j > 0 && s[j - 1] > s[j]) {
+                int temp = s[j];
+                s[j] = s[j - 1];
+                s[j - 1] = temp;
+
+                j--;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.println(s[i]);
+        }
+    }
+}
