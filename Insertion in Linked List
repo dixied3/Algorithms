@@ -1,0 +1,126 @@
+//C
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdio.h>
+struct Node{
+	int data;
+	struct Node* next;
+};
+//This is linked list traversal function
+void Linkedlisttraversal(struct Node *ptr){
+	//this pointer initially poinys at head of the node
+	while(ptr != NULL){
+	printf("%d ",ptr -> data);
+	ptr = ptr -> next; //aisa karne sae ptr wiill point to next node ka data
+}
+}
+
+
+//this function will return a head pointer that's why struct type 
+//compiler is asking for a new node to be created and allocated in the heap memory. 
+
+struct Node * insertAtFirst(struct Node *head,int data){
+	//compiler sae request ki ek node ki jo ki vo dynamically locate kar kae dega heap mein NAYA NODE
+	struct Node * ptr = (struct Node*)malloc(sizeof(struct Node));
+	ptr -> next = head;
+	ptr -> data =data;
+	return ptr;
+}
+
+struct Node * insertAtIndex(struct Node * head,int data,int index){
+	struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
+	//p ptr. head sae chalegaa jab atall index mein nahi aa jata
+	//p vaha pae aao jaha head h
+	struct Node *p = head;
+	int i = 0;
+	while(i != index-1){
+		/* ll h->> 1,2,3,4,5.  3 & 4 pae insert karna h toh
+		p jab 2 pae hoga toh p 3(joki 2 ka next h) ko point kareegaa matlab
+		p peeche sae aa raha h toh */
+		p = p -> next;
+		i++;
+	}
+	ptr -> next = p -> next;
+	p -> next = ptr;
+	ptr -> data = data;
+	return head;
+}
+struct Node * insertAtEnd(struct Node * head,int data){
+	struct Node *ptr = (struct Node*)malloc(sizeof(struct Node));
+	ptr -> data = data;
+	struct Node * p = head;
+	while(p -> next != NULL){
+		p = p -> next;
+	}
+	ptr -> next = NULL;
+	p -> next = ptr;
+	return head;
+}
+struct Node * insertafternode(struct Node * head,struct Node * prevNode,int data){
+	struct Node * ptr = (struct Node*)malloc(sizeof(struct Node)); 
+	ptr -> data = data;
+	
+	ptr -> next = prevNode -> next;
+	prevNode -> next = ptr;
+	
+	return head;
+}
+
+int main(){
+	struct Node * head,*second,*third,*fourth;
+	//struct Node * second;
+	//struct Node * third;
+	//struct Node * fourth;
+	
+	//Allocating memory for nodes in the linked list in heap
+	
+	head = (struct Node *)malloc(sizeof(struct Node));
+	second = (struct Node *)malloc(sizeof(struct Node));
+	third = (struct Node *)malloc(sizeof(struct Node));
+	fourth = (struct Node *)malloc(sizeof(struct Node));
+	
+	//Link first and second Nodes
+	
+	head -> data = 7;
+	head -> next = second;
+	
+	//Link the second node to third
+	
+	second -> data = 11;
+	second -> next = third;
+	
+	//Terminatre list at the third node 
+	third -> data = 13;
+	third -> next = fourth;
+	
+	//Link third and fourth Nodes
+	
+	fourth -> data = 56;
+	fourth -> next = NULL;
+	
+	
+	printf("Before Insertion :  ");
+	Linkedlisttraversal(head);
+  
+	head = insertAtFirst(head,35);
+	printf("\nAfter Insertion at beginning :  ");
+  
+	Linkedlisttraversal(head);
+	insertAtIndex(head,77,3);
+  
+	printf("\nAfter insertion before 3 :  ");
+	Linkedlisttraversal(head);
+  
+	insertAtEnd(head,68);
+	printf("\nInsertion at end :  ");
+  
+	Linkedlisttraversal(head);
+	printf("\nInsertion after a node :  ");
+  
+	head = insertafternode(head,second,19);
+	Linkedlisttraversal(head);
+	
+	return 0;
+ 
+}
