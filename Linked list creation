@@ -1,0 +1,54 @@
+C code for linked list creation via. functions
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+	int data;
+	struct Node * next;
+};
+
+struct Node * create(struct Node * head , int val){
+    //struct Node * head = (struct Node*)malloc(sizeof(struct Node));
+
+    if(head == NULL){
+        printf("Memory allocation failed");
+        exit(1);  // Exit the program if memory allocation fails
+    }
+    
+    head->data = val;
+    head->next = NULL;
+    printf("First Node is created\n");
+    return head;
+}
+struct Node * add(struct Node * head, int val){
+	struct Node * p = (struct Node *)malloc(sizeof(struct Node));
+	struct Node * temp = head;
+	p -> data = val;
+	p -> next = NULL;
+	while(temp -> next != NULL){
+		temp = temp -> next;
+	}
+	temp -> next = p;
+	printf("New Node -> %d added\n",val);
+	
+	return head;
+}
+
+void display(struct Node * head){
+	struct Node * ptr = head;
+	while(ptr != NULL){
+		printf("%d ",ptr -> data);
+		ptr = ptr -> next;
+	}
+}
+int main(){
+	struct Node * head = (struct Node * )malloc(sizeof(struct Node));
+	
+	head = create(head,3);
+	add(head,2);
+	add(head,1);
+	add(head,4);
+	printf("\n");
+	display(head);
+}
